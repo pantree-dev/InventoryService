@@ -394,5 +394,15 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
+# Solution Specific Settings
+*.sln.DotSettings
+
 # JetBrains Rider
 *.sln.iml
+.idea/
+
+# Local DB files
+*.db
+*.db-shm
+*.db-wal
+*.db-*
