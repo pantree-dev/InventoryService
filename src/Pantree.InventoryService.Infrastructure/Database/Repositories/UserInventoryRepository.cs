@@ -15,6 +15,12 @@ public sealed class UserInventoryRepository(AppDbContext ctx) : IUserInventoryRe
         await ctx.SaveChangesAsync(ct);
         return entity;
     }
+
+    /// <inheritdoc cref="IUserInventoryRepository.Delete" />
+    public void Delete(UserInventory entity) {
+        ctx.Set<UserInventory>().Remove(entity);
+        ctx.SaveChanges();
+    }
     
     /// <inheritdoc cref="IUserInventoryRepository.FetchInventoryForUserAsync" />
     public async Task<IPagedResult<Guid, UserInventory>> FetchInventoryForUserAsync(Guid userId,
@@ -42,6 +48,13 @@ public sealed class UserInventoryRepository(AppDbContext ctx) : IUserInventoryRe
         );
     }
 
+    /// <inheritdoc cref="IUserInventoryRepository.GetByIdAsync" />
+    public async Task<UserInventory?> GetByIdAsync(Guid inventoryId, CancellationToken ct = default) {
+        return await ctx.Set<UserInventory>()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == inventoryId, ct);
+    }
+    
     /// <inheritdoc cref="IUserInventoryRepository.GetByProductSkuForUserIdAsync" />
     public async Task<UserInventory?> GetByProductSkuForUserIdAsync(Guid userId,
         Guid productSku,

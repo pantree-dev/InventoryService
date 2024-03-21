@@ -15,7 +15,8 @@ public class AddToUserInventoryCommand(Guid productSku, Guid userId, int amount)
     public int Amount { get; } = amount;
 }
 
-internal sealed class AddToUserInventoryCommandHandler(IUserInventoryRepository userInventoryRepository, 
+internal sealed class AddToUserInventoryCommandHandler(
+    IUserInventoryRepository userInventoryRepository, 
     IEventOutboxRepository outboxRepository, 
     IUnitOfWork unitOfWork
 ) : IRequestHandler<AddToUserInventoryCommand, Guid> {

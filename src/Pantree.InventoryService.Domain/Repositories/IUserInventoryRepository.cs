@@ -17,6 +17,12 @@ public interface IUserInventoryRepository {
     /// /// <param name="ct">The current request cancellation token</param>
     /// <returns>The domain model added</returns>
     Task<UserInventory> AddAsync(UserInventory entity, CancellationToken ct = default);
+
+    /// <summary>
+    /// Removes the domain model from the current data storage transaction.
+    /// </summary>
+    /// <param name="entity">The entity to be removed</param>
+    void Delete(UserInventory entity);
     
     /// <summary>
     /// Fetch a paged set of inventory items for a given user.
@@ -31,6 +37,14 @@ public interface IUserInventoryRepository {
         int pageSize,
         CancellationToken ct = default
     );
+
+    /// <summary>
+    /// Get a single inventory item by the unique identifier.
+    /// </summary>
+    /// <param name="inventoryId">The inventory id</param>
+    /// <param name="ct">The current request cancellation token</param>
+    /// <returns></returns>
+    Task<UserInventory?> GetByIdAsync(Guid inventoryId, CancellationToken ct = default);
 
     /// <summary>
     /// Get a single inventory item that matches the user-id and the product sku.
